@@ -1,5 +1,4 @@
 const axios = require('axios');
-const { compile } = require('nexe')
 
 
 function formatDate(x) {
