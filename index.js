@@ -6,6 +6,11 @@ function formatDate(x) {
 	return `${date.getUTCMonth()+1}/${date.getUTCDate()}/${date.getUTCFullYear()}`
 }
 
+function getSaveFileDate() {
+	const date = new Date();
+	return `${date.getUTCMonth()+1}_${date.getUTCDate()}_${date.getUTCFullYear()}`
+}
+
 async function getAllPopularity(ticker)
 {
 	try {
@@ -64,7 +69,7 @@ rl.question('Ticker: ', async (answer) => {
 			// save to csv
 			const createCSVWriter = require('csv-writer').createObjectCsvWriter;
 			const CSVWriter = createCSVWriter({
-				path: `${answer}.csv`,
+				path: `${answer}_${getSaveFileDate()}.csv`,
 				header: [
 					{id: 'popularity', title: 'Popularity'},
 					{id: 'date', title: 'Date'},
@@ -73,7 +78,7 @@ rl.question('Ticker: ', async (answer) => {
 
 			CSVWriter
 				.writeRecords(resp)
-				.then(()=> console.log(`The CSV file was written successfully: ${answer}.csv`)); 
+				.then(()=> console.log(`The CSV file was written successfully: ${answer}_${getSaveFileDate()}.csv`)); 
 		}
 	} catch (err) {
 		// should not get here
